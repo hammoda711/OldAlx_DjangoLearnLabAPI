@@ -3,10 +3,11 @@
 from django.urls  import path,include
 from .views import BookListAPIView as BookList, BookViewSet
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 router = routers.DefaultRouter()
 router.register(r'books_all', BookViewSet, basename='book_all')
-
 
 
 urlpatterns = [
@@ -14,6 +15,7 @@ urlpatterns = [
     # http://127.0.0.1:8000/api/books/
     path('books/', BookList.as_view(), name='book-list'),
     path('', include(router.urls)),
+    path('api/token/', obtain_auth_token, name='api_token_auth'),
 ]
 #routers endpoints
 # GET /api/books/ - List all books (list action)
